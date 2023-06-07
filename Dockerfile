@@ -2,13 +2,15 @@ FROM ros:noetic-robot
 
 RUN useradd -ms /bin/bash docker && echo 'docker:Docker23' | chpasswd && usermod -a -G sudo docker
 
-RUN apt-get update && apt-get -y install apt-utils && apt-get -y upgrade && apt-get -y install --autoremove python-is-python3 python3-rosinstall-generator ros-noetic-roslint \
+RUN apt-get update && apt-get -y install apt-utils && apt-get -y upgrade && apt-get -y install python-is-python3 python3-rosinstall-generator ros-noetic-roslint \
+    nano vim mc \
     $(: Intera SDK dependencies) \
     git-core python3-wstool python3-vcstools python3-rosdep ros-noetic-control-msgs ros-noetic-joy ros-noetic-xacro ros-noetic-tf2-ros ros-noetic-rviz ros-noetic-cv-bridge ros-noetic-actionlib ros-noetic-actionlib-msgs ros-noetic-dynamic-reconfigure ros-noetic-trajectory-msgs ros-noetic-rospy-message-converter \
     $(: Gazebo) \
     gazebo11 ros-noetic-gazebo-ros ros-noetic-gazebo-ros-control ros-noetic-gazebo-ros-pkgs ros-noetic-ros-control ros-noetic-control-toolbox ros-noetic-realtime-tools ros-noetic-ros-controllers ros-noetic-xacro python3-wstool ros-noetic-tf-conversions ros-noetic-kdl-parser \
     $(: moveit) \
-    ros-noetic-moveit
+    ros-noetic-moveit \
+    && apt-get -y install --no-install-recommends --autoremove ros-noetic-rqt-common-plugins
 
 USER docker
 WORKDIR /home/docker
